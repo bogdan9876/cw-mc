@@ -14,10 +14,11 @@ int HBStart = 31;
 int HBStartCheck = 0;
 
 void setup() {
+  Serial.begin(9600); // Ініціалізація віртуального серійного порту
   lcd.begin(20, 4);
   pinMode(HBSensor, INPUT);
   pinMode(HBStart, INPUT_PULLUP);
-  Timer1.initialize(50000); 
+  Timer1.initialize(500000); 
   Timer1.attachInterrupt( timerIsr );
   lcd.clear();
   lcd.setCursor(0,0);
@@ -50,6 +51,11 @@ void loop() {
       lcd.setCursor(14,2);
       lcd.print(HBperMin);
       lcd.print(" ");
+      // Надсилання даних через віртуальний серійний порт
+      Serial.print("Temperature: ");
+      Serial.print(val);
+      Serial.print(" Heart Rate: ");
+      Serial.println(HBperMin);
       HBCount = 0;
       TimeinSec = 0;      
     }
