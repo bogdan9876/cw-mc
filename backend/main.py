@@ -20,7 +20,13 @@ db_connection = mysql.connector.connect(
 @app.route('/press-button', methods=['POST'])
 def press_button():
     ser.write(b'1')
-    return 'Button pressed'
+    data = ser.readline().decode().strip()
+    hb_data = data.split(":")[1].strip()
+    db_cursor = db_connection.cursor()
+    db_cursor.execute("INSERT INTO health_data (heart_rate) VALUES (%s)", (hb_data,))
+    db_connection.commit()
+    db_cursor.close()
+    return 'Button pressed, data saved'
 
 
 @app.route('/api/data')
