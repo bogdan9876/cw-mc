@@ -30,11 +30,13 @@ void setup() {
 }
 
 void loop() {
-
-  if(digitalRead(HBStart) == LOW) {
-    HBStartCheck = 1;
+  if (Serial.available() > 0) {
+    char received = Serial.read();
+    if (received == '1') {
+      HBStartCheck = 1;
+    }
   }
-  
+
   if(HBStartCheck == 1) {
     if((digitalRead(HBSensor) == HIGH) && (HBCheck == 0)) {
       HBCount = HBCount + 1;

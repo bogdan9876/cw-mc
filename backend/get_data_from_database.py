@@ -1,9 +1,12 @@
 import mysql.connector
+import serial
 from flask import Flask, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+
+ser = serial.Serial('COM3', 9600)
 
 db_connection = mysql.connector.connect(
     host="127.0.0.1",
@@ -12,6 +15,12 @@ db_connection = mysql.connector.connect(
     password="bogda765",
     database="health_data"
 )
+
+
+@app.route('/press-button', methods=['POST'])
+def press_button():
+    ser.write(b'1')
+    return 'Button pressed'
 
 
 @app.route('/api/data')
