@@ -1,0 +1,197 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "Hey", "Hello", "Good day", "Howdy"],
+      "responses": [
+        "Hello, how can I assist you in your stoic practice today?",
+        "Hi there, ready for some stoic wisdom?",
+        "Greetings! May your day be filled with tranquility.",
+        "Hello! Let's dive into some stoic philosophy."
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye", "Farewell"],
+      "responses": [
+        "Remember, virtue is the sole good. See you later!",
+        "Farewell, may you find tranquility in your practice.",
+        "Goodbye! Embrace the challenges with stoic calmness.",
+        "Until next time, remember to focus on what's within your control."
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful", "Appreciate it"],
+      "responses": [
+        "I'm here to help you understand Stoicism better. Any time!",
+        "Glad I could assist in your Stoic journey!",
+        "You're welcome! Stoic wisdom is always at your disposal.",
+        "Happy to help! Remember, we control our reactions to the world."
+      ]
+    },
+    {
+      "tag": "stoic_quotes",
+      "patterns": ["Tell me a stoic quote", "I need some stoic wisdom", "Share a quote from a stoic philosopher", "Give me some stoic inspiration"],
+      "responses": [
+        "\"You have power over your mind - not outside events. Realize this, and you will find strength.\" - Marcus Aurelius",
+        "\"We suffer more often in imagination than in reality.\" - Seneca",
+        "\"It is not that we have a short time to live, but that we waste much of it.\" - Seneca",
+        "\"He who fears death will never do anything worth of a man who is alive.\" - Seneca"
+      ]
+    },
+    {
+      "tag": "stoic_practices",
+      "patterns": ["What are some stoic practices?", "How can I practice stoicism?", "Tell me a stoic exercise", "How can I apply stoicism in my daily life?"],
+      "responses": [
+        "One practice is to contemplate on the impermanence of things, another is to practice negative visualization to appreciate what you have.",
+        "Stoicism involves daily reflection and maintaining an unwavering focus on what is within your control.",
+        "Try to separate things into what you can control and what you can't. Focus your energy on the former."
+      ]
+    },
+    {
+      "tag": "recommend_stoic_book",
+      "patterns": ["Recommend me a stoic book", "What stoic book should I read?", "Book on stoicism", "I want to read about stoicism"],
+      "responses": ["I recommend 'Meditations' by Marcus Aurelius or 'Letters from a Stoic' by Seneca.", "For a great introduction, try 'The Daily Stoic' by Ryan Holiday.", "'On the Shortness of Life' by Seneca is also a great read."]
+    },
+    {
+      "tag": "stoic_books",
+      "patterns": ["What are some good books on stoicism?", "Recommend a book on stoicism", "I want to learn more about stoicism"],
+      "responses": [
+        "'Meditations' by Marcus Aurelius is a great start.",
+        "'Letters from a Stoic' by Seneca is also highly recommended.",
+        "'The Art of Living' by Epictetus provides practical insights into Stoic philosophy.",
+        "'The Obstacle Is the Way' by Ryan Holiday applies stoic philosophy to modern life."
+      ]
+    },
+    {
+      "tag": "philosophers",
+      "patterns": ["Tell me about stoic philosophers", "Who were the stoic philosophers?", "Famous stoic philosophers"],
+      "responses": [
+        "Some famous Stoic philosophers include Marcus Aurelius, Seneca, and Epictetus.",
+        "Marcus Aurelius, the Roman Emperor, is perhaps the most well-known Stoic philosopher.",
+        "Seneca, a Roman statesman and playwright, was also a prominent Stoic philosopher.",
+        "Epictetus, a former slave, taught Stoic philosophy in Rome."
+      ]
+    },
+    {
+      "tag": "daily_reflection",
+      "patterns": ["Why is daily reflection important?", "What is the purpose of daily reflection?", "Benefits of daily reflection"],
+      "responses": [
+        "Daily reflection helps us gain clarity, focus, and perspective in our lives.",
+        "It allows us to evaluate our actions, thoughts, and emotions, leading to personal growth and self-awareness.",
+        "By reflecting on our day, we can identify areas for improvement and reinforce positive habits.",
+        "Daily reflection fosters gratitude, resilience, and mindfulness in our daily lives."
+      ]
+    },
+    {
+      "tag": "virtue",
+      "patterns": ["What is virtue in Stoicism?", "Importance of virtue in Stoicism", "Principles of virtue in Stoicism"],
+      "responses": [
+        "Virtue, in Stoicism, refers to moral excellence and living in accordance with nature and reason.",
+        "It is the cornerstone of Stoic philosophy, representing the highest good and the path to eudaimonia, or human flourishing.",
+        "Stoics believe that virtue is the only true good and that living a virtuous life leads to inner peace and fulfillment.",
+        "Practicing virtue involves cultivating qualities such as wisdom, courage, temperance, and justice."
+      ]
+    },
+    {
+      "tag": "essential",
+      "patterns": ["Does this actually matter?", "Is this essential?", "Is this necessary?", "What is the essence of this?", "Why is this important?"],
+      "responses": [
+        "Ask yourself at every moment 'Is this Essential?' because most of what we do and say is not essential. When you eliminate the inessential you get the double benefit of doing the essential things better.",
+        "If something aligns with your values and contributes to your goals, it might be essential.",
+        "Consider the impact of this on your life and the lives of others. That can help determine its essential nature."
+      ]
+    },
+    {
+      "tag": "audience",
+      "patterns": ["Who’s this for?", "Who is this action for?", "Who will benefit from this?", "Who is the intended audience?", "Who should pay attention to this?"],
+      "responses": [
+        "Whatever your actions are, you’ve to know who’s this for? What is the outcome of your actions? Is it going to help someone? Think about it before you create such an action.",
+        "The audience for your actions might be yourself, others, or both. It depends on the action and its intent.",
+        "Consider who will be affected by this action. That's your audience."
+      ]
+    },
+    {
+      "tag": "alive_or_dead_time",
+      "patterns": ["Will this be alive time or dead time?", "Is this activity productive or wasteful?", "Am I making the most of my time?", "Is this a good use of my time?"],
+      "responses": [
+        "Now is now, use your time to move forward not backward. Seneca says 'It is not that we have a short space of time, but that we waste much of it. Life is long enough, and it has been given in sufficiently generous measure to allow the accomplishment of the very greatest things if the whole of it is well invested.'",
+        "Consider whether this activity contributes to your goals and values. If it does, it might be 'alive time.' If not, it might be 'dead time.'",
+        "Time is our most precious resource. Use it wisely."
+      ]
+    },
+    {
+      "tag": "identity",
+      "patterns": ["Is this who I want to be?", "Does this align with my values?", "Am I being true to myself?", "Is this consistent with my identity?"],
+      "responses": [
+        "Is this truly what you want to be? Is it making you happier in the long run? Ask your inner self. If not consider the change.",
+        "Your actions should reflect who you want to be. If they don't, it might be time for some introspection.",
+        "Being true to yourself means acting in ways that align with your beliefs and values."
+      ]
+    },
+    {
+      "tag": "companionship",
+      "patterns": ["Who are you spending time with?", "Choose your company wisely", "Are your relationships beneficial?", "Who influences you the most?", "Who are your friends?"],
+      "responses": [
+        "Epictetus was famously 'lame,' having had his leg crippled while in slavery. Marcus Aurelius spent enormous amounts of time with Epictetus’s writings. It didn’t make him limp — it made him wiser, more resilient, calmer, more compassionate. Epictetus passed those things onto him. A slave shaped a king and made him better.",
+        "The people you spend time with can greatly influence your thoughts and actions. Choose your company wisely.",
+        "Surround yourself with people who inspire you, challenge you, and help you grow."
+      ]
+    },
+    {
+      "tag": "control",
+      "patterns": ["Is this in my Control?", "What is within my control?", "Can I influence this situation?", "What can I do about this?", "How much control do I have over this?"],
+      "responses": [
+        "What is in our control is primarily our thoughts, emotions, desires, choices, and actions (or at least certain aspects of them), and that everything else strictly speaking lies outside of our control — is consistent.",
+        "Focus on what you can control and let go of what you can't. This can lead to peace and satisfaction.",
+        "You might not be able to control the situation, but you can control your response to it."
+      ]
+    },
+    {
+      "tag": "ideal_day",
+      "patterns": ["What does your ideal day look like?", "Describe your perfect day", "How would you spend your ideal day?", "What would you do on a perfect day?", "What is your dream day?"],
+      "responses": [
+        "Seneca says 'A life is made up of days'. How you are going to design your life. It matters what you do, whether it gives you short-term pleasure or long-term happiness? The day turns into a week, the week into a month, and the month in a year. Be accountable for your day, whatever you’re doing right now.",
+        "Your ideal day might involve doing things you love, spending time with people you care about, and achieving your goals.",
+        "Think about what makes you happy and fulfilled. That's what your ideal day should include."
+      ]
+    },
+    {
+      "tag": "to_be_or_to_do",
+      "patterns": ["To be or to do?", "Should I focus on being or doing?", "What's more important: who I am or what I do?", "Should I prioritize my identity or my actions?"],
+      "responses": [
+        "'It’s amazing how much you can accomplish if you don’t care about who gets the credit.' When you want to become something or someone you set a desire, that’s a path toward your unhappiness. Rather, start doing small things rather than desiring to be something.",
+        "Who you are is reflected in what you do. Focus on being the best version of yourself, and your actions will follow.",
+        "Both being and doing are important. They influence each other and are aspects of your overall identity and life."
+      ]
+    },
+{
+      "tag": "selflessness",
+      "patterns": ["If I am not for me, who is? If I am only for me, who am I?", "Am I only for myself?", "Should I prioritize others over myself?", "How can I be more selfless?", "What does it mean to be selfless?"],
+      "responses": [
+        "To be a good person, don’t think about your own interests. But, as Rabbi Hillel suggests, if a person is not concerned with his own needs and well-being, why should he expect others to be? For example, if a sick person makes no effort to treat his illness, is it reasonable to expect others to devote themselves to treating it?",
+        "Selflessness means putting the needs of others before your own. It's about being kind, generous, and considerate.",
+        "Being selfless doesn't mean you have to ignore your own needs. It's about finding a balance between taking care of yourself and helping others."
+      ]
+    },
+    {
+      "tag": "worry",
+      "patterns": ["What am I missing by choosing to worry or be afraid?", "How does worrying affect me?", "Why should I avoid worrying?", "What are the consequences of worry?", "How can I stop worrying?"],
+      "responses": [
+        "You are rejecting all the amazing moments that are waiting for you to grab them. You’re living a limited time worrying about your Future from the actions of the present and past. Sometimes, you will know exactly what you’re worried about. Other times, you might not know exactly what’s bugging you.",
+        "Worrying can lead to stress, which can have physical and mental health effects. It can prevent you from enjoying life and can lead to negative thinking.",
+        "The best way to stop worrying is to accept that you have no control over many of the things you worry about. Focus on the things you can control, like your reactions and attitudes."
+      ]
+    },
+    {
+      "tag": "accountability",
+      "patterns": ["Are you doing your job?", "Am I fulfilling my responsibilities?", "Am I being responsible?", "How can I be more accountable?", "What does accountability mean?"],
+      "responses": [
+        "Everyone has a job at every moment it might be personal, corporate small, or big. But are you actually doing it?",
+        "Accountability means taking responsibility for your actions and their outcomes. It involves acknowledging your mistakes and learning from them.",
+        "Being more accountable can involve setting clear goals, following through on commitments, and being honest with yourself and others."
+      ]
+    }
+  ]
+}

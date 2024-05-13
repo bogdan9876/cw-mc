@@ -1,5 +1,6 @@
 import mysql.connector
 import serial
+from chat import get_response
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
@@ -33,12 +34,20 @@ def press_button():
 @app.route('/api/data')
 def get_data():
     user_token = request.headers.get('Authorization').split(' ')[1]
-    db_cursor = db_connection.cursor()
-    db_cursor.execute("SELECT heart_rate FROM health_data WHERE user_token = %s ORDER BY id DESC LIMIT 10",
+    db_cursor = db_connection.cursor(dictionary=True)
+    db_cursor.execute("SELECT heart_rate, created_at FROM health_data WHERE user_token = %s ORDER BY id DESC LIMIT 10",
                       (user_token,))
     data = db_cursor.fetchall()
     db_cursor.close()
     return jsonify(data)
+
+
+@app.post("/predict")
+def predict():
+    text = request.get_json().get("message")
+    response = get_response(text)
+    message = {"answer": response}
+    return jsonify(message)
 
 
 if __name__ == '__main__':
