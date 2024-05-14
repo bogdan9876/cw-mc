@@ -9,13 +9,17 @@ CORS(app)
 
 ser = serial.Serial("COM3", 9600)
 
-db_connection = mysql.connector.connect(
-    host="127.0.0.1",
-    port="3306",
-    user="root",
-    password="bogda765",
-    database="health_data",
-)
+try:
+    db_connection = mysql.connector.connect(
+        host="127.0.0.1",
+        port="3306",
+        user="root",
+        password="bogda765",
+        database="health_data",
+    )
+    print("Database connection successful")
+except Exception as e:
+    print(f"Failed to connect to database: {e}")
 
 
 @app.route("/login", methods=["POST"])
@@ -48,27 +52,33 @@ def register():
 
 @app.route("/press-button", methods=["POST"])
 def press_button():
-    ser.write(b"1")
-    data = ser.readline().decode().strip()
-    hb_data = data.split(":")[1].strip()
-    user_id = request.json.get("user_id")
-    db_cursor = db_connection.cursor()
-    db_cursor.execute(
-        "INSERT INTO health_data (heart_rate, user_id) VALUES (%s, %s)",
-        (hb_data, user_id),
-    )
-    db_connection.commit()
-    db_cursor.close()
-    return "Button pressed, data saved"
+    try:
+        ser.write(b"1")
+        data = ser.readline().decode().strip()
+        hb_data = data.split(":")[1].strip()
+        user_email = request.headers.get("Authorization").split(" ")[1]
+
+        db_cursor = db_connection.cursor()
+        db_cursor.execute(
+            "INSERT INTO health_data (heart_rate, user_email) VALUES (%s, %s)",
+            (hb_data, user_email),
+        )
+        db_connection.commit()
+        db_cursor.close()
+        print("Data saved successfully")
+        return jsonify({"message": "Button pressed, data saved"}), 200
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/api/data")
 def get_data():
-    user_id = request.headers.get("Authorization").split(" ")[1]
+    user_email = request.headers.get("Authorization").split(" ")[1]
     db_cursor = db_connection.cursor(dictionary=True)
     db_cursor.execute(
-        "SELECT heart_rate, created_at FROM health_data WHERE user_id = %s ORDER BY id DESC LIMIT 10",
-        (user_id,),
+        "SELECT heart_rate, created_at FROM health_data WHERE user_email = %s ORDER BY id DESC LIMIT 10",
+        (user_email,),
     )
     data = db_cursor.fetchall()
     db_cursor.close()
