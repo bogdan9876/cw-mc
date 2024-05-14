@@ -121,5 +121,26 @@ def user_profile():
         return jsonify({"message": "User data updated successfully"}), 200
 
 
+@app.route("/doctors", methods=["GET"])
+def get_doctors():
+    db_cursor = db_connection.cursor(dictionary=True)
+    db_cursor.execute("SELECT * FROM doctors")
+    doctors = db_cursor.fetchall()
+    db_cursor.close()
+    return jsonify(doctors), 200
+
+
+@app.route("/doctors/<int:doctor_id>", methods=["GET"])
+def get_doctor(doctor_id):
+    db_cursor = db_connection.cursor(dictionary=True)
+    db_cursor.execute("SELECT * FROM doctors WHERE id = %s", (doctor_id,))
+    doctor = db_cursor.fetchone()
+    db_cursor.close()
+    if doctor:
+        return jsonify(doctor), 200
+    else:
+        return jsonify({"error": "Doctor not found"}), 404
+
+
 if __name__ == "__main__":
     app.run(port=5000)
