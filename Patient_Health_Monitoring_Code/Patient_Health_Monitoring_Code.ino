@@ -12,13 +12,15 @@ int TimeinSec = 0;
 int HBperMin = 0;
 int HBStart = 31;
 int HBStartCheck = 0;
+int buzzerPin = 11;
 
 void setup() {
   Serial.begin(9600);
   lcd.begin(20, 4);
   pinMode(HBSensor, INPUT);
   pinMode(HBStart, INPUT_PULLUP);
-  Timer1.initialize(100000); 
+  pinMode(buzzerPin, OUTPUT);
+  Timer1.initialize(800000); 
   Timer1.attachInterrupt( timerIsr );
   lcd.clear();
   lcd.setCursor(0,0);
@@ -56,10 +58,12 @@ void loop() {
       Serial.print(" Heart Rate: ");
       Serial.println(HBperMin);
       HBCount = 0;
-      TimeinSec = 0;      
+      TimeinSec = 0;
+      digitalWrite(buzzerPin, HIGH);
+      delay(1000);
+      digitalWrite(buzzerPin, LOW);
     }
   }
-  
 }
 
 void timerIsr() {
