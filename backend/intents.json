@@ -1,105 +1,185 @@
 {
-  "intents": [
-    {
-      "tag": "pulse_measurement",
-      "patterns": ["Як виміряти пульс?", "Чим вимірювати пульс?", "Як дізнатися свій пульс?", "Як правильно виміряти пульс?", "Чи може виміряти пульс?"],
-      "responses": [
-        "Пульс можна виміряти, кладучи пальці на зап'ястя або на шию і рахуючи кількість ударів протягом певного часу.",
-        "Найчастіше пульс вимірюють на зап'ясті або на шиї, відчуваючи пульсуючі артерії і рахуючи кількість ударів за 1 хвилину.",
-        "Для вимірювання пульсу можна використовувати спеціальний прилад - пульсометр, або просто виміряти його власноруч, зафіксувавши кількість ударів протягом 15 секунд і помноживши на 4."
-      ]
-    },
-    {
-      "tag": "normal_pulse_range",
-      "patterns": ["Який нормальний діапазон пульсу?", "Скільки має бути нормальний пульс?", "Як дізнатися, чи мій пульс нормальний?"],
-      "responses": [
-        "Нормальний пульс для дорослої людини зазвичай становить від 60 до 100 ударів на хвилину.",
-        "Зазвичай, нормальний пульс дорослої людини становить приблизно 60-80 ударів на хвилину. Проте це може варіюватися залежно від фізичного стану, віку та інших факторів."
-      ]
-    },
-    {
-      "tag": "high_pulse",
-      "patterns": ["Чому високий пульс?", "Як знизити високий пульс?", "Чим загрожує високий пульс?"],
-      "responses": [
-        "Високий пульс може бути зумовлений різними факторами, такими як стрес, фізична напруга, захворювання серця чи судин, а також погані звички. Рекомендовано звернутися до лікаря для діагностики та порад щодо зниження пульсу.",
-        "Високий пульс може бути наслідком стресу, перенапруження, поганого харчування або захворювань серця. Для зниження пульсу рекомендується відпочинок, здорове харчування та регулярні фізичні навантаження.",
-        "Високий пульс може бути симптомом різних захворювань або станів, таких як стрес, недостатня фізична активність, неправильне харчування, а також захворювання серця та судин. Рекомендується звернутися до лікаря для визначення причин та рекомендацій щодо лікування.",
-        "Щоб знизити високий пульс, корисно використовувати методи релаксації, такі як глибоке дихання або медитація, та зменшити фізичне навантаження. Також важливо відмовитися від шкідливих звичок та збалансувати раціон харчування."
-      ]
-    },
-    {
-      "tag": "low_pulse",
-      "patterns": ["Чому низький пульс?", "Як підвищити низький пульс?", "Чим загрожує низький пульс?"],
-      "responses": [
-        "Низький пульс може бути зумовлений різними факторами, такими як перевтома, недостатня фізична активність, захворювання серця або судин, а також погані звички. Рекомендовано звернутися до лікаря для діагностики та порад щодо підвищення пульсу.",
-        "Низький пульс може бути наслідком недостатньої фізичної активності, втрати крові, захворювань серця чи судин, а також поганого харчування. Для підвищення пульсу рекомендується здорове харчування, фізичні вправи та звернення до лікаря.",
-        "Низький пульс може бути симптомом різних захворювань або станів, таких як перевтома, недостатня фізична активність, захворювання серця або судин. Рекомендується звернутися до лікаря для визначення причин та рекомендацій щодо лікування.",
-        "Для підвищення низького пульсу можна спробувати збагачення раціону продуктами, багатими на залізо та вітаміни групи В, збільшити фізичну активність та зменшити стрес."
-      ]
-    },
-    {
-      "tag": "pulse_control",
-      "patterns": ["Як контролювати пульс?", "Як підтримувати нормальний пульс?", "Як підтримувати здоровий пульс?"],
-      "responses": [
-        "Для контролю пульсу рекомендується здоровий спосіб життя, включаючи регулярні фізичні вправи, збалансоване харчування та уникання стресу.",
-        "Зберігайте нормальний пульс шляхом регулярних фізичних вправ, відпочинку, здорового харчування та відмови від шкідливих звичок.",
-        "Підтримання здорового пульсу може бути досягнуте шляхом здорового способу життя, включаючи правильне харчування, регулярну фізичну активність та управління стресом.",
-        "Для контролю пульсу рекомендується також вести здоровий сон, обмежувати споживання кави та алкоголю, а також займатися релаксаційними практиками, такими як йога чи медитація."
-      ]
-    },
-    {
-      "tag": "pulse_disorders",
-      "patterns": ["Що таке порушення пульсу?", "Які порушення пульсу існують?", "Чим загрожує порушення пульсу?"],
-      "responses": [
-        "Порушення пульсу можуть бути спричинені різними факторами, такими як захворювання серця, емоційний стрес, фізична напруга або погані звички. Деякі з найпоширеніших порушень пульсу включають аритмію, тахікардію або брадикардію.",
-        "Порушення пульсу можуть призвести до серйозних наслідків, таких як загроза серцевого нападу, інсульту або інших серцево-судинних захворювань. Рекомендовано звернутися до лікаря для діагностики та лікування порушень пульсу.",
-        "Найбільш поширеними порушеннями пульсу є аритмія, тахікардія, брадикардія та фібриляція передсердь. Ці стани можуть бути симптомами серйозних захворювань серця та судин, тому важливо звернутися до лікаря для визначення причин та лікування.",
-        "Порушення пульсу можуть також бути наслідком психічних або емоційних станів, таких як стрес або тривога, тому важливо займатися релаксаційними практиками та відпочивати від стресових ситуацій."
-      ]
-    },
-    {
-      "tag": "pulse_exercise",
-      "patterns": ["Як впливає фізична активність на пульс?", "Які вправи знижують пульс?", "Чи може фізична активність збільшити пульс?"],
-      "responses": [
-        "Фізична активність може позитивно впливати на пульс, роблячи серце більш ефективним у перекачуванні крові по організму.",
-        "Регулярні фізичні вправи, такі як ходьба, плавання та велосипедіння, можуть знижувати пульс та покращувати серцево-судинну систему.",
-        "Так, фізична активність може збільшувати пульс на короткий час під час вправ, але це є нормальною реакцією організму на збільшену потребу в кисні та енергії.",
-        "Деякі види фізичної активності, такі як аеробні вправи або йога, можуть сприяти зниженню пульсу та зміцненню серцево-судинної системи."
-      ]
-    },
-    {
-      "tag": "inquiry_about_pulse",
-      "patterns": ["Мені заміряти пульс?", "Чи маю я виміряти пульс?", "Чи нормальний мій пульс?"],
-      "responses": [
-        "Так, виміряйте свій пульс, якщо ви відчуваєте потребу або цікавість.",
-        "Виміряти пульс може бути корисно, особливо якщо ви хочете знати більше про свій стан здоров'я.",
-        "Якщо вас цікавить, виміряйте свій пульс. Нормальний пульс для дорослої людини зазвичай становить від 60 до 100 ударів на хвилину."
-      ]
-    },
-{
-  "tag": "normal_pulse_response",
-  "patterns": [
-    "Який нормальний пульс?",
-    "Чи нормальний мій пульс?",
-    "Чи в межах норми мій серцебиття?",
-    "Як зрозуміти, що пульс нормальний?",
-    "Чи добре, що мій пульс такий?",
-    "Чи вказує мій пульс на здоров'я?",
-    "Чи можу я не хвилюватися за свій пульс?",
-    "Чи є мій пульс показником фізичної форми?",
-    "Які показники нормального пульсу?",
-    "Чи є мій пульс занадто високим/низьким?"
-  ],
-  "responses": [
-    "Так, це в нормі. Нормальний пульс для дорослої людини зазвичай становить від 60 до 100 ударів на хвилину.",
-    "Ваш пульс в межах норми. Для більшості дорослих нормальний пульс становить від 60 до 100 ударів на хвилину.",
-    "Не хвилюйтеся, пульс від 60 до 100 ударів на хвилину вважається нормальним для дорослих.",
-    "Якщо ваш пульс знаходиться між 60 і 100 ударів на хвилину, ви можете бути спокійні - це нормально.",
-    "Нормальний пульс свідчить про хороше здоров'я. Ваш пульс в нормі, якщо він від 60 до 100 ударів на хвилину.",
-    "Пульс, який тримається в межах 60-100 ударів на хвилину, є індикатором нормального серцебиття.",
-    "Ваш пульс показує, що ви в хорошій фізичній формі, якщо він знаходиться в діапазоні від 60 до 100 ударів на хвилину.",
-    "Якщо ваш пульс перевищує 100 ударів на хвилину або менше 60, рекомендуємо звернутися до лікаря."
-  ]
-}
-]
+   "intents":[
+      {
+         "tag":"greeting_pulse",
+         "patterns":[
+            "Hi",
+            "Hey",
+            "Hello",
+            "Good day",
+            "Howdy"
+         ],
+         "responses":[
+            "Hello! How can I assist you with your pulse monitoring today?",
+            "Hi there! Ready to discuss everything about monitoring your pulse?",
+            "Greetings! Let's talk about pulse tracking and health.",
+            "Hello! How's your pulse today? Let's dive into monitoring it.",
+            "Hey! Interested in learning more about tracking your pulse?",
+            "Good day! Looking to optimize your pulse monitoring routine?",
+            "Howdy! Let's chat about pulse monitoring and maintaining good health.",
+            "Hi there! Want to explore the world of pulse monitoring with me?",
+            "Hello! Ready to take your pulse monitoring to the next level?",
+            "Greetings! Let's embark on a journey to better understand your pulse.",
+            "Hi! Interested in discovering the secrets hidden in your pulse data?",
+            "Hey there! Let's have a conversation about the importance of pulse monitoring.",
+            "Hello! How's your day? Interested in discussing pulse tracking methods?",
+            "Good day! Let's delve into the fascinating realm of pulse monitoring together.",
+            "Howdy! Ready to unlock the insights hidden in your pulse readings?",
+            "Hi there! Want to explore the benefits of pulse monitoring for your health?",
+            "Hello! Looking to enhance your pulse monitoring experience?",
+            "Hey! Ready to learn how to track your pulse like a pro?",
+            "Good day! Let's discuss the latest advancements in pulse monitoring technology.",
+            "Howdy! Interested in discovering new ways to monitor your pulse effectively?"
+         ]
+      },
+      {
+         "tag":"goodbye_pulse",
+         "patterns":[
+            "Bye",
+            "See you later",
+            "Goodbye",
+            "Farewell",
+            "Take care",
+            "Catch you later",
+            "Until next time",
+            "Talk to you later",
+            "See you soon",
+            "Until we meet again",
+            "Keep in touch",
+            "Be seeing you"
+         ],
+         "responses":[
+            "Farewell! Remember to keep an eye on your pulse.",
+            "Until next time, take care of your pulse health!",
+            "Goodbye! Keep monitoring your pulse regularly.",
+            "See you later! Stay healthy and keep track of your pulse.",
+            "Take care! Don't forget to check your pulse.",
+            "Catch you later! And remember, your pulse is important.",
+            "Until we meet again, keep your pulse in check!",
+            "Talk to you later! And don't neglect your pulse.",
+            "See you soon! Remember, your pulse is a key indicator of your health.",
+            "Until we meet again, don't forget to monitor your pulse!",
+            "Keep in touch! And keep your pulse in check.",
+            "Be seeing you! Don't forget, your pulse matters."
+         ]
+      },
+      {
+         "tag":"thanks_pulse",
+         "patterns":[
+            "Thanks",
+            "Thank you",
+            "That's helpful",
+            "Appreciate it",
+            "Much appreciated",
+            "Grateful for your help",
+            "Thanks a lot",
+            "Thanks for the info"
+         ],
+         "responses":[
+            "Glad I could help with your pulse-related questions!",
+            "You're welcome! Monitoring your pulse is crucial for your health.",
+            "Anytime! Your pulse health matters.",
+            "Happy to assist! Remember to listen to your body's signals, including your pulse.",
+            "You're welcome! Keep an eye on your pulse, it's important.",
+            "I'm here to help! Don't forget to regularly check your pulse.",
+            "Glad to be of assistance! Remember, your pulse can tell a lot about your health.",
+            "Always happy to help! Stay healthy and keep monitoring your pulse."
+         ]
+      },
+      {
+         "tag":"pulse_measurement",
+         "patterns":[
+            "How do I measure my pulse?",
+            "What's the best way to check my pulse?",
+            "How often should I measure my pulse?",
+            "Can you guide me to measure my pulse?",
+            "What are the methods to check my pulse?",
+            "How frequently should I check my pulse?"
+         ],
+         "responses":[
+            "To measure your pulse, place your index and middle fingers lightly on your wrist, neck, or chest, and count the beats for 15 or 30 seconds. Then, multiply the number by 4 or 2, respectively, to get your beats per minute (bpm).",
+            "The best way to measure your pulse depends on your comfort and accessibility. You can use your fingers to check your wrist, neck, or chest pulse.",
+            "It's recommended to measure your pulse regularly, especially during exercise or if you have underlying health conditions. Consult with a healthcare professional for personalized advice.",
+            "You can also use a pulse oximeter to measure your pulse. It's a small device that clips onto your finger and measures your pulse rate as well as the amount of oxygen in your blood.",
+            "If you're using your fingers to measure your pulse, make sure your hand is warm. Cold fingers can make it harder to feel the pulse.",
+            "If you have any medical conditions or are on medication that affects your heart rate, you should check your pulse more frequently and report any irregularities to your doctor."
+         ]
+      },
+      {
+         "tag":"pulse_tracking_devices",
+         "patterns":[
+            "What devices can I use to track my pulse?",
+            "Are there any gadgets for monitoring pulse?",
+            "Recommend pulse tracking tools",
+            "What are the best devices for pulse tracking?",
+            "Can you suggest some pulse monitoring devices?",
+            "What are some reliable pulse tracking devices?"
+         ],
+         "responses":[
+            "There are various devices available for pulse monitoring, including fitness trackers, smartwatches, and dedicated pulse oximeters.",
+            "Popular fitness trackers and smartwatches often include pulse monitoring features. Look for devices with accurate heart rate sensors for reliable measurements.",
+            "For precise pulse tracking, consider investing in a high-quality pulse oximeter or medical-grade wearable device. Always choose devices from reputable brands for accurate readings.",
+            "Devices like the Fitbit Charge, Apple Watch, and Garmin Vivosmart are known for their reliable heart rate monitoring features.",
+            "Pulse oximeters are small, clip-on devices that measure heart rate and oxygen saturation. They can provide more precise readings than fitness trackers or smartwatches.",
+            "Medical-grade wearable devices, such as those from BioBeat and iHealth, offer continuous pulse monitoring and can provide detailed reports for medical professionals."
+         ]
+      },
+      {
+         "tag":"pulse_health",
+         "patterns":[
+            "Why is monitoring my pulse important?",
+            "What does my pulse tell me about my health?",
+            "Benefits of tracking my pulse",
+            "Why should I keep track of my pulse?",
+            "What can my pulse tell me?",
+            "What are the advantages of pulse tracking?"
+         ],
+         "responses":[
+            "Monitoring your pulse provides valuable insights into your cardiovascular health and fitness levels. Changes in your pulse rate can indicate underlying health conditions or the effectiveness of your exercise regimen.",
+            "Your pulse rate reflects your heart's activity and can help detect abnormalities or irregularities. Consistent pulse monitoring allows for early detection of potential health issues.",
+            "Tracking your pulse regularly empowers you to make informed decisions about your lifestyle, exercise routine, and overall health management. It's a proactive approach to wellness.",
+            "Your pulse can indicate your level of fitness. A lower resting pulse generally indicates a higher level of cardiovascular fitness.",
+            "A sudden increase in your pulse rate, when you're not exercising, could signal a medical condition that needs attention.",
+            "Regular pulse monitoring can help you understand how lifestyle factors like diet, stress, and sleep affect your heart health."
+         ]
+      },
+      {
+         "tag":"pulse_control",
+         "patterns":[
+            "How can I control my pulse rate?",
+            "Tips for regulating my pulse",
+            "Ways to manage my pulse",
+            "How to keep my pulse rate normal?",
+            "What can I do to regulate my pulse?",
+            "Methods to control my pulse rate"
+         ],
+         "responses":[
+            "To regulate your pulse rate, focus on maintaining a healthy lifestyle with regular exercise, balanced nutrition, adequate hydration, and stress management techniques like deep breathing or meditation.",
+            "Engage in activities that promote cardiovascular fitness, such as aerobic exercises, yoga, or swimming. Avoid stimulants like caffeine and nicotine, which can elevate your pulse rate.",
+            "Practice relaxation techniques and stress-reducing activities to keep your pulse rate within a healthy range. Prioritize sleep, manage workload, and seek support from healthcare professionals if needed.",
+            "Maintaining a healthy weight can also help regulate your pulse rate. Overweight and obesity can put extra strain on your heart, causing an increase in pulse rate.",
+            "Limiting alcohol and avoiding recreational drugs can also help keep your pulse rate in check. Both can have negative effects on your heart health.",
+            "Regular check-ups with your healthcare provider can help you monitor your pulse rate and detect any potential issues early."
+         ]
+      },
+      {
+         "tag":"pulse_normal_range",
+         "patterns":[
+            "What's a normal pulse rate?",
+            "What range is considered normal for pulse?",
+            "Normal pulse rate for adults",
+            "What should my pulse be?",
+            "What is the average pulse rate?",
+            "What is a healthy pulse rate?"
+         ],
+         "responses":[
+            "The normal pulse rate for adults at rest is typically between 60 to 100 beats per minute (bpm). However, individual factors such as age, fitness level, and medical conditions can influence your baseline pulse rate.",
+            "A resting pulse rate within the range of 60 to 100 bpm is generally considered normal for adults. Athletes or highly trained individuals may have lower resting pulse rates due to their cardiovascular conditioning.",
+            "Consult with a healthcare provider if you have concerns about your pulse rate or notice significant fluctuations outside the normal range. They can offer personalized guidance based on your health status and medical history.",
+            "Keep in mind that factors such as stress, caffeine, alcohol, and certain medications can temporarily affect your pulse rate.",
+            "During exercise, it's normal for your pulse rate to increase. A general rule of thumb is that your maximum heart rate during exercise is about 220 minus your age.",
+            "Remember, regular pulse monitoring can help you understand your body better and detect potential health issues early."
+         ]
+      }
+   ]
 }
