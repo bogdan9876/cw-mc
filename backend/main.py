@@ -27,10 +27,11 @@ def login():
     email = request.json.get("email")
     password = request.json.get("password")
     db_cursor = db_connection.cursor(dictionary=True)
-    db_cursor.execute("SELECT * FROM users WHERE email = %s AND password = %s", (email, password))
+    db_cursor.execute(
+        "SELECT * FROM users WHERE email = %s AND password = %s", (email, password)
+    )
     user = db_cursor.fetchone()
     db_cursor.close()
-
     if user:
         return jsonify({"message": "Login successful", "user": user}), 200
     else:
@@ -43,33 +44,31 @@ def register():
     email = request.json.get("email")
     password = request.json.get("password")
     db_cursor = db_connection.cursor()
-    db_cursor.execute("INSERT INTO users (username, email, password) VALUES (%s, %s, %s)", (username, email, password))
+    db_cursor.execute(
+        "INSERT INTO users (username, email, password) VALUES (%s, %s, %s)",
+        (username, email, password),
+    )
     db_connection.commit()
     db_cursor.close()
-
     return jsonify({"message": "Registration successful"}), 201
 
 
 @app.route("/press-button", methods=["POST"])
 def press_button():
-    try:
-        ser.write(b"1")
-        data = ser.readline().decode().strip()
-        hb_data = data.split(":")[1].strip()
-        user_email = request.headers.get("Authorization").split(" ")[1]
+    ser.write(b"1")
+    data = ser.readline().decode().strip()
+    hb_data = data.split(":")[1].strip()
+    user_email = request.headers.get("Authorization").split(" ")[1]
 
-        db_cursor = db_connection.cursor()
-        db_cursor.execute(
-            "INSERT INTO health_data (heart_rate, user_email) VALUES (%s, %s)",
-            (hb_data, user_email),
-        )
-        db_connection.commit()
-        db_cursor.close()
-        print("Data saved successfully")
-        return jsonify({"message": "Button pressed, data saved"}), 200
-    except Exception as e:
-        print(f"Error occurred: {e}")
-        return jsonify({"error": str(e)}), 500
+    db_cursor = db_connection.cursor()
+    db_cursor.execute(
+        "INSERT INTO health_data (heart_rate, user_email) VALUES (%s, %s)",
+        (hb_data, user_email),
+    )
+    db_connection.commit()
+    db_cursor.close()
+    print("Data saved successfully")
+    return jsonify({"message": "Button pressed, data saved"}), 200
 
 
 @app.route("/api/data")
@@ -114,7 +113,13 @@ def user_profile():
         db_cursor = db_connection.cursor()
         db_cursor.execute(
             "UPDATE users SET name = %s, surname = %s, phone_number = %s, address = %s WHERE email = %s",
-            (user_data["name"], user_data["surname"], user_data["phone_number"], user_data["address"], user_email),
+            (
+                user_data["name"],
+                user_data["surname"],
+                user_data["phone_number"],
+                user_data["address"],
+                user_email,
+            ),
         )
         db_connection.commit()
         db_cursor.close()
@@ -123,8 +128,14 @@ def user_profile():
 
 @app.route("/doctors", methods=["GET"])
 def get_doctors():
+    position = request.args.get("position")
     db_cursor = db_connection.cursor(dictionary=True)
-    db_cursor.execute("SELECT * FROM doctors")
+    if position:
+        db_cursor.execute(
+            "SELECT * FROM doctors WHERE position LIKE %s", ("%" + position + "%",)
+        )
+    else:
+        db_cursor.execute("SELECT * FROM doctors")
     doctors = db_cursor.fetchall()
     db_cursor.close()
     return jsonify(doctors), 200
