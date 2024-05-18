@@ -147,10 +147,44 @@ def get_doctor(doctor_id):
     db_cursor.execute("SELECT * FROM doctors WHERE id = %s", (doctor_id,))
     doctor = db_cursor.fetchone()
     db_cursor.close()
-    if doctor:
+    if (doctor):
         return jsonify(doctor), 200
     else:
         return jsonify({"error": "Doctor not found"}), 404
+
+
+@app.route("/chat/history", methods=["GET"])
+def get_chat_history():
+    user_email = request.headers.get("Authorization").split(" ")[1]
+    db_cursor = db_connection.cursor(dictionary=True)
+    db_cursor.execute(
+        "SELECT message AS text, sender AS user, created_at FROM chat_history WHERE user_email = %s ORDER BY id ASC",
+        (user_email,)
+    )
+    chat_history = db_cursor.fetchall()
+    db_cursor.close()
+    return jsonify(chat_history), 200
+
+
+@app.route("/chat/message", methods=["POST"])
+def save_chat_message():
+    user_email = request.headers.get("Authorization").split(" ")[1]
+    message = request.json.get("message")
+    sender = request.json.get("sender")
+    db_cursor = db_connection.cursor()
+    db_cursor.execute(
+        "SELECT COUNT(*) FROM users WHERE email = %s", (user_email,)
+    )
+    result = db_cursor.fetchone()
+    if result[0] == 0:
+        return jsonify({"error": "User email not found"}), 400
+    db_cursor.execute(
+        "INSERT INTO chat_history (user_email, message, sender) VALUES (%s, %s, %s)",
+        (user_email, message, sender)
+    )
+    db_connection.commit()
+    db_cursor.close()
+    return jsonify({"message": "Message saved"}), 201
 
 
 if __name__ == "__main__":
