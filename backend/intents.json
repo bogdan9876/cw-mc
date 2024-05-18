@@ -180,6 +180,17 @@
             "During exercise, it's normal for your pulse rate to increase. A general rule of thumb is that your maximum heart rate during exercise is about 220 minus your age.",
             "Remember, regular pulse monitoring can help you understand your body better and detect potential health issues early."
          ]
+      },
+      {
+         "tag":"average_pulse",
+         "patterns":[
+            "What is my average pulse?",
+            "Can you tell me my average pulse?",
+            "What's the average of my pulse?"
+         ],
+         "responses":[
+            "Let me check your average pulse rate..."
+         ]
       }
    ]
 }

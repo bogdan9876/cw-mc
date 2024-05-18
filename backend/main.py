@@ -87,7 +87,8 @@ def get_data():
 @app.post("/predict")
 def predict():
     text = request.get_json().get("message")
-    response = get_response(text)
+    db_cursor = db_connection.cursor()
+    response = get_response(text, db_cursor)
     message = {"answer": response}
     return jsonify(message)
 

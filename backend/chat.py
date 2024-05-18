@@ -1,7 +1,7 @@
 import random
 import json
-
 import torch
+from flask import request
 
 from model import NeuralNet
 from nltk_utils import bag_of_words, tokenize
@@ -28,7 +28,7 @@ model.eval()
 bot_name = "Sam"
 
 
-def get_response(msg):
+def get_response(msg, db_cursor):
     sentence = tokenize(msg)
     X = bag_of_words(sentence, all_words)
     X = X.reshape(1, X.shape[0])
@@ -44,6 +44,18 @@ def get_response(msg):
     if prob.item() > 0.75:
         for intent in intents["intents"]:
             if tag == intent["tag"]:
-                return random.choice(intent["responses"])
+                if tag == "average_pulse":
+                    user_email = request.headers.get("Authorization")
+                    if user_email:
+                        user_email = user_email.split(" ")[1]
+                        db_cursor.execute(
+                            "SELECT AVG(heart_rate) FROM health_data WHERE user_email = %s", (user_email,)
+                        )
+                        average_pulse = db_cursor.fetchone()[0]
+                        return f"Your average pulse rate is {average_pulse} beats per minute."
+                    else:
+                        return "Authorization header is missing"
+                else:
+                    return random.choice(intent["responses"])
 
     return "I do not understand..."
