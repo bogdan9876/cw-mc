@@ -55,6 +55,10 @@ def get_response(msg, db_cursor):
                         return f"Your average pulse rate is {average_pulse} beats per minute."
                     else:
                         return "Authorization header is missing"
+                elif tag == "user_count":
+                    db_cursor.execute("SELECT COUNT(*) FROM users")
+                    user_count = db_cursor.fetchone()[0]
+                    return f"There are {user_count} users registered in the system."
                 else:
                     return random.choice(intent["responses"])
 

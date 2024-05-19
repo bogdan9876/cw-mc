@@ -191,6 +191,11 @@
          "responses":[
             "Let me check your average pulse rate..."
          ]
+      },
+      {
+         "tag": "user_count",
+         "patterns": ["How many users are in the system?", "Tell me the number of users in the system", "What is number of users in the system?"],
+         "responses": ["There are {user_count} users registered in the system."]
       }
    ]
 }
