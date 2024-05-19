@@ -8,7 +8,7 @@ from nltk_utils import bag_of_words, tokenize
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-with open('intents.json', 'r', encoding='utf-8') as json_data:
+with open("intents.json", "r", encoding="utf-8") as json_data:
     intents = json.load(json_data)
 
 FILE = "data.pth"
@@ -52,13 +52,47 @@ def get_response(msg, db_cursor):
                             "SELECT AVG(heart_rate) FROM health_data WHERE user_email = %s", (user_email,)
                         )
                         average_pulse = db_cursor.fetchone()[0]
-                        return f"Your average pulse rate is {average_pulse} beats per minute."
+                        if average_pulse is not None:
+                            average_pulse = round(average_pulse, 1)
+                            return f"Your average pulse rate is {average_pulse} beats per minute."
+                        else:
+                            return "No pulse data available."
                     else:
                         return "Authorization header is missing"
                 elif tag == "user_count":
                     db_cursor.execute("SELECT COUNT(*) FROM users")
                     user_count = db_cursor.fetchone()[0]
                     return f"There are {user_count} users registered in the system."
+                elif tag == "minimal_pulse":
+                    user_email = request.headers.get("Authorization")
+                    if user_email:
+                        user_email = user_email.split(" ")[1]
+                        db_cursor.execute(
+                            "SELECT MIN(heart_rate) FROM health_data WHERE user_email = %s", (user_email,)
+                        )
+                        minimal_pulse = db_cursor.fetchone()[0]
+                        if minimal_pulse is not None:
+                            minimal_pulse = round(minimal_pulse, 1)
+                            return f"The minimum recorded pulse rate is {minimal_pulse} beats per minute."
+                        else:
+                            return "No pulse data available."
+                    else:
+                        return "Authorization header is missing"
+                elif tag == "maximal_pulse":
+                    user_email = request.headers.get("Authorization")
+                    if user_email:
+                        user_email = user_email.split(" ")[1]
+                        db_cursor.execute(
+                            "SELECT MAX(heart_rate) FROM health_data WHERE user_email = %s", (user_email,)
+                        )
+                        maximal_pulse = db_cursor.fetchone()[0]
+                        if maximal_pulse is not None:
+                            maximal_pulse = round(maximal_pulse, 1)
+                            return f"The maximum recorded pulse rate is {maximal_pulse} beats per minute."
+                        else:
+                            return "No pulse data available."
+                    else:
+                        return "Authorization header is missing"
                 else:
                     return random.choice(intent["responses"])
 

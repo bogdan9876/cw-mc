@@ -196,6 +196,29 @@
          "tag": "user_count",
          "patterns": ["How many users are in the system?", "Tell me the number of users in the system", "What is number of users in the system?"],
          "responses": ["There are {user_count} users registered in the system."]
-      }
+      },
+      {
+         "tag":"minimal_pulse",
+         "patterns": [
+            "What is my lowest recorded pulse?",
+            "What is my lowest pulse?",
+            "Tell me my lowest pulse rate on record."
+            ],
+         "responses":[
+            "Your lowest pulse is {lowest_pulse}"
+         ]
+      },
+      {
+         "tag": "maximal_pulse",
+         "patterns": [
+         "What is my highest recorded pulse?",
+         "What is my highest pulse?",
+         "What is my maximal pulse?",
+         "Tell me my highest pulse rate on record."
+         ],
+         "responses": [
+            "Your highest pulse is {maximal_pulse}"
+   ]
+}
    ]
 }
