@@ -1,10 +1,13 @@
 import mysql.connector
 import serial
 from flask import Flask, jsonify, request
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 from flask_cors import CORS
 from chat import get_response
 
 app = Flask(__name__)
+app.config['JWT_SECRET_KEY'] = 'super-secret'
+jwt = JWTManager(app)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 ser = serial.Serial("COM3", 9600)
@@ -33,7 +36,8 @@ def login():
     user = db_cursor.fetchone()
     db_cursor.close()
     if user:
-        return jsonify({"message": "Login successful", "user": user}), 200
+        access_token = create_access_token(identity=email)
+        return jsonify({"message": "Login successful", "access_token": access_token}), 200
     else:
         return jsonify({"error": "Invalid credentials"}), 401
 
@@ -54,11 +58,12 @@ def register():
 
 
 @app.route("/press-button", methods=["POST"])
+@jwt_required()
 def press_button():
     ser.write(b"1")
     data = ser.readline().decode().strip()
     hb_data = data.split(":")[1].strip()
-    user_email = request.headers.get("Authorization").split(" ")[1]
+    user_email = get_jwt_identity()
 
     db_cursor = db_connection.cursor()
     db_cursor.execute(
@@ -72,8 +77,9 @@ def press_button():
 
 
 @app.route("/api/data")
+@jwt_required()
 def get_data():
-    user_email = request.headers.get("Authorization").split(" ")[1]
+    user_email = get_jwt_identity()
     db_cursor = db_connection.cursor(dictionary=True)
     db_cursor.execute(
         "SELECT heart_rate, created_at FROM health_data WHERE user_email = %s ORDER BY id DESC LIMIT 10",
@@ -85,6 +91,7 @@ def get_data():
 
 
 @app.post("/predict")
+@jwt_required()
 def predict():
     text = request.get_json().get("message")
     db_cursor = db_connection.cursor()
@@ -94,9 +101,10 @@ def predict():
 
 
 @app.route("/user", methods=["GET", "PUT"])
+@jwt_required()
 def user_profile():
     if request.method == "GET":
-        user_email = request.headers.get("Authorization").split(" ")[1]
+        user_email = get_jwt_identity()
         db_cursor = db_connection.cursor(dictionary=True)
         db_cursor.execute(
             "SELECT name, surname, email, phone_number, address FROM users WHERE email = %s",
@@ -109,7 +117,7 @@ def user_profile():
         else:
             return jsonify({"error": "User not found"}), 404
     elif request.method == "PUT":
-        user_email = request.headers.get("Authorization").split(" ")[1]
+        user_email = get_jwt_identity()
         user_data = request.json
         db_cursor = db_connection.cursor()
         db_cursor.execute(
@@ -155,8 +163,9 @@ def get_doctor(doctor_id):
 
 
 @app.route("/chat/history", methods=["GET"])
+@jwt_required()
 def get_chat_history():
-    user_email = request.headers.get("Authorization").split(" ")[1]
+    user_email = get_jwt_identity()
     db_cursor = db_connection.cursor(dictionary=True)
     db_cursor.execute(
         "SELECT message AS text, sender AS user, created_at FROM chat_history WHERE user_email = %s ORDER BY id ASC",
@@ -168,8 +177,9 @@ def get_chat_history():
 
 
 @app.route("/chat/message", methods=["POST"])
+@jwt_required()
 def save_chat_message():
-    user_email = request.headers.get("Authorization").split(" ")[1]
+    user_email = get_jwt_identity()
     message = request.json.get("message")
     sender = request.json.get("sender")
     db_cursor = db_connection.cursor()
