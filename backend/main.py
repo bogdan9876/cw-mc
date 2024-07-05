@@ -1,3 +1,4 @@
+import base64
 import mysql.connector
 import serial
 from flask import Flask, jsonify, request
@@ -103,33 +104,49 @@ def predict():
 @app.route("/user", methods=["GET", "PUT"])
 @jwt_required()
 def user_profile():
+    user_email = get_jwt_identity()
     if request.method == "GET":
-        user_email = get_jwt_identity()
         db_cursor = db_connection.cursor(dictionary=True)
         db_cursor.execute(
-            "SELECT name, surname, email, phone_number, address FROM users WHERE email = %s",
+            "SELECT name, surname, email, phone_number, address, profile_picture FROM users WHERE email = %s",
             (user_email,),
         )
         user_data = db_cursor.fetchone()
         db_cursor.close()
         if user_data:
+            if user_data["profile_picture"]:
+                user_data["profile_picture"] = base64.b64encode(user_data["profile_picture"]).decode('utf-8')
             return jsonify({"user": user_data}), 200
         else:
             return jsonify({"error": "User not found"}), 404
     elif request.method == "PUT":
-        user_email = get_jwt_identity()
         user_data = request.json
+        profile_picture = user_data.get("profile_picture")
         db_cursor = db_connection.cursor()
-        db_cursor.execute(
-            "UPDATE users SET name = %s, surname = %s, phone_number = %s, address = %s WHERE email = %s",
-            (
-                user_data["name"],
-                user_data["surname"],
-                user_data["phone_number"],
-                user_data["address"],
-                user_email,
-            ),
-        )
+        if profile_picture:
+            profile_picture = base64.b64decode(profile_picture)
+            db_cursor.execute(
+                "UPDATE users SET name = %s, surname = %s, phone_number = %s, address = %s, profile_picture = %s WHERE email = %s",
+                (
+                    user_data["name"],
+                    user_data["surname"],
+                    user_data["phone_number"],
+                    user_data["address"],
+                    profile_picture,
+                    user_email,
+                ),
+            )
+        else:
+            db_cursor.execute(
+                "UPDATE users SET name = %s, surname = %s, phone_number = %s, address = %s WHERE email = %s",
+                (
+                    user_data["name"],
+                    user_data["surname"],
+                    user_data["phone_number"],
+                    user_data["address"],
+                    user_email,
+                ),
+            )
         db_connection.commit()
         db_cursor.close()
         return jsonify({"message": "User data updated successfully"}), 200
