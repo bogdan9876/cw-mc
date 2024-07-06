@@ -181,14 +181,14 @@ def get_doctor(doctor_id):
         return jsonify({"error": "Doctor not found"}), 404
 
 
-@app.route("/chat/history", methods=["GET"])
+@app.route("/chat/<int:chat_id>/history", methods=["GET"])
 @jwt_required()
-def get_chat_history():
+def get_chat_history(chat_id):
     user_email = get_jwt_identity()
     db_cursor = db_connection.cursor(dictionary=True)
     db_cursor.execute(
-        "SELECT message AS text, sender AS user, created_at FROM chat_history WHERE user_email = %s ORDER BY id ASC",
-        (user_email,)
+        "SELECT message AS text, sender AS user, created_at FROM chat_history WHERE user_email = %s AND chat_id = %s ORDER BY id ASC",
+        (user_email, chat_id,)
     )
     chat_history = db_cursor.fetchall()
     db_cursor.close()
@@ -201,6 +201,7 @@ def save_chat_message():
     user_email = get_jwt_identity()
     message = request.json.get("message")
     sender = request.json.get("sender")
+    chat_id = request.json.get("chat_id")
     db_cursor = db_connection.cursor()
     db_cursor.execute(
         "SELECT COUNT(*) FROM users WHERE email = %s", (user_email,)
@@ -209,12 +210,28 @@ def save_chat_message():
     if result[0] == 0:
         return jsonify({"error": "User email not found"}), 400
     db_cursor.execute(
-        "INSERT INTO chat_history (user_email, message, sender) VALUES (%s, %s, %s)",
-        (user_email, message, sender)
+        "INSERT INTO chat_history (user_email, message, sender, chat_id) VALUES (%s, %s, %s, %s)",
+        (user_email, message, sender, chat_id)
     )
     db_connection.commit()
     db_cursor.close()
     return jsonify({"message": "Message saved"}), 201
+
+
+@app.route("/chat/create", methods=["POST"])
+@jwt_required()
+def create_chat():
+    user_email = get_jwt_identity()
+    chat_name = request.json.get("chat_name")
+    db_cursor = db_connection.cursor()
+    db_cursor.execute(
+        "INSERT INTO chats (chat_name, user_email) VALUES (%s, %s)",
+        (chat_name, user_email),
+    )
+    db_connection.commit()
+    chat_id = db_cursor.lastrowid
+    db_cursor.close()
+    return jsonify({"message": "Chat created", "chat_id": chat_id}), 201
 
 
 if __name__ == "__main__":
