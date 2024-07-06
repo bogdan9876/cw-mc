@@ -181,7 +181,7 @@ def get_doctor(doctor_id):
         return jsonify({"error": "Doctor not found"}), 404
 
 
-@app.route("/chat/<int:chat_id>/history", methods=["GET"])
+@app.route("/chat/<int:chat_id>/history", methods=["GET", 'OPTIONS'])
 @jwt_required()
 def get_chat_history(chat_id):
     user_email = get_jwt_identity()
@@ -234,5 +234,16 @@ def create_chat():
     return jsonify({"message": "Chat created", "chat_id": chat_id}), 201
 
 
+@app.route('/chat/list', methods=['GET'])
+@jwt_required()
+def get_chat_list():
+    user_email = get_jwt_identity()
+    db_cursor = db_connection.cursor()
+    db_cursor.execute('SELECT id, chat_name FROM chats WHERE user_email = %s', (user_email,))
+    chats = db_cursor.fetchall()
+    db_cursor.close()
+    return jsonify(chats), 200
+
+
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(debug=True)
