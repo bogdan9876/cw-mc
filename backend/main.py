@@ -242,6 +242,32 @@ def update_chat_name(chat_id):
             {'message': 'Chat name updated successfully', 'chat_id': chat_id, 'chat_name': updated_chat_name}), 200
 
 
+@app.route('/chat/<int:chat_id>', methods=['DELETE'])
+@jwt_required()
+def delete_chat(chat_id):
+    user_email = get_jwt_identity()
+    db_cursor = db_connection.cursor()
+    db_cursor.execute(
+        "SELECT id FROM chats WHERE id = %s AND user_email = %s",
+        (chat_id, user_email,)
+    )
+    chat = db_cursor.fetchone()
+    if not chat:
+        db_cursor.close()
+        return jsonify({'error': 'Chat not found or you do not have permission to delete'}), 404
+    db_cursor.execute(
+        "DELETE FROM chat_history WHERE chat_id = %s",
+        (chat_id,)
+    )
+    db_cursor.execute(
+        "DELETE FROM chats WHERE id = %s",
+        (chat_id,)
+    )
+    db_connection.commit()
+    db_cursor.close()
+    return jsonify({'message': 'Chat and its history deleted successfully'}), 200
+
+
 @app.route("/chat/message", methods=["POST"])
 @jwt_required()
 def save_chat_message():
