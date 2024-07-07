@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'super-secret'
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=30)
 jwt = JWTManager(app)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 ser = serial.Serial("COM3", 9600)
 
@@ -181,18 +181,25 @@ def get_doctor(doctor_id):
         return jsonify({"error": "Doctor not found"}), 404
 
 
-@app.route("/chat/<int:chat_id>/history", methods=["GET", 'OPTIONS'])
+@app.route('/chat/history/<int:chat_id>', methods=['OPTIONS', 'GET'])
 @jwt_required()
 def get_chat_history(chat_id):
-    user_email = get_jwt_identity()
-    db_cursor = db_connection.cursor(dictionary=True)
-    db_cursor.execute(
-        "SELECT message AS text, sender AS user, created_at FROM chat_history WHERE user_email = %s AND chat_id = %s ORDER BY id ASC",
-        (user_email, chat_id,)
-    )
-    chat_history = db_cursor.fetchall()
-    db_cursor.close()
-    return jsonify(chat_history), 200
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+        response.headers.add('Access-Control-Allow-Headers', 'authorization')
+        response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+        return response
+    elif request.method == 'GET':
+        user_email = get_jwt_identity()
+        db_cursor = db_connection.cursor(dictionary=True)
+        db_cursor.execute(
+            "SELECT message AS text, sender AS user, created_at FROM chat_history WHERE user_email = %s AND chat_id = %s ORDER BY id ASC",
+            (user_email, chat_id,)
+        )
+        chat_history = db_cursor.fetchall()
+        db_cursor.close()
+        return jsonify(chat_history), 200
 
 
 @app.route("/chat/message", methods=["POST"])
