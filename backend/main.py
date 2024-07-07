@@ -202,6 +202,46 @@ def get_chat_history(chat_id):
         return jsonify(chat_history), 200
 
 
+@app.route('/chat/update/<int:chat_id>', methods=['PUT', 'OPTIONS'])
+@jwt_required()
+def update_chat_name(chat_id):
+    if request.method == 'OPTIONS':
+        response = jsonify()
+        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+        response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+        return response
+    elif request.method == 'PUT':
+        user_email = get_jwt_identity()
+        new_chat_name = request.json.get('chat_name')
+        if not new_chat_name:
+            return jsonify({'error': 'Missing chat_name parameter'}), 400
+        db_cursor = db_connection.cursor()
+        db_cursor.execute(
+            "SELECT id FROM chats WHERE id = %s AND user_email = %s",
+            (chat_id, user_email,)
+        )
+        chat = db_cursor.fetchone()
+        if not chat:
+            db_cursor.close()
+            return jsonify({'error': 'Chat not found or you do not have permission to update'}), 404
+        db_cursor.execute(
+            "UPDATE chats SET chat_name = %s WHERE id = %s",
+            (new_chat_name, chat_id,)
+        )
+        db_connection.commit()
+        db_cursor.close()
+        db_cursor = db_connection.cursor()
+        db_cursor.execute(
+            "SELECT chat_name FROM chats WHERE id = %s",
+            (chat_id,)
+        )
+        updated_chat_name = db_cursor.fetchone()[0]
+        db_cursor.close()
+        return jsonify(
+            {'message': 'Chat name updated successfully', 'chat_id': chat_id, 'chat_name': updated_chat_name}), 200
+
+
 @app.route("/chat/message", methods=["POST"])
 @jwt_required()
 def save_chat_message():
@@ -245,7 +285,7 @@ def create_chat():
 @jwt_required()
 def get_chat_list():
     user_email = get_jwt_identity()
-    db_cursor = db_connection.cursor()
+    db_cursor = db_connection.cursor(dictionary=True)
     db_cursor.execute('SELECT id, chat_name FROM chats WHERE user_email = %s', (user_email,))
     chats = db_cursor.fetchall()
     db_cursor.close()
