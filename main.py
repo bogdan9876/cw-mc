@@ -1,7 +1,7 @@
 import base64
 from datetime import timedelta
 import mysql.connector
-import serial
+# import serial
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
@@ -13,7 +13,7 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=30)
 jwt = JWTManager(app)
 CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}})
 
-ser = serial.Serial("COM3", 9600)
+# ser = serial.Serial("COM3", 9600)
 
 try:
     db_connection = mysql.connector.connect(
@@ -60,23 +60,23 @@ def register():
     return jsonify({"message": "Registration successful"}), 201
 
 
-@app.route("/press-button", methods=["POST"])
-@jwt_required()
-def press_button():
-    ser.write(b"1")
-    data = ser.readline().decode().strip()
-    hb_data = data.split(":")[1].strip()
-    user_email = get_jwt_identity()
-
-    db_cursor = db_connection.cursor()
-    db_cursor.execute(
-        "INSERT INTO health_data (heart_rate, user_email) VALUES (%s, %s)",
-        (hb_data, user_email),
-    )
-    db_connection.commit()
-    db_cursor.close()
-    print("Data saved successfully")
-    return jsonify({"message": "Button pressed, data saved"}), 200
+# @app.route("/press-button", methods=["POST"])
+# @jwt_required()
+# def press_button():
+#     ser.write(b"1")
+#     data = ser.readline().decode().strip()
+#     hb_data = data.split(":")[1].strip()
+#     user_email = get_jwt_identity()
+#
+#     db_cursor = db_connection.cursor()
+#     db_cursor.execute(
+#         "INSERT INTO health_data (heart_rate, user_email) VALUES (%s, %s)",
+#         (hb_data, user_email),
+#     )
+#     db_connection.commit()
+#     db_cursor.close()
+#     print("Data saved successfully")
+#     return jsonify({"message": "Button pressed, data saved"}), 200
 
 
 @app.route("/api/data")
