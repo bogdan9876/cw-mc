@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'super-secret'
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=30)
 jwt = JWTManager(app)
-CORS(app, supports_credentials=True, resources={r"/*": {"origins": "https://pulse-tracker.vercel.app"}})
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}})
 
 # ser = serial.Serial("COM3", 9600)
 
@@ -186,7 +186,7 @@ def get_doctor(doctor_id):
 def get_chat_history(chat_id):
     if request.method == 'OPTIONS':
         response = jsonify()
-        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+        response.headers.add('Access-Control-Allow-Origin', 'https://pulse-tracker.vercel.app')
         response.headers.add('Access-Control-Allow-Headers', 'authorization')
         response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
         return response
@@ -207,7 +207,7 @@ def get_chat_history(chat_id):
 def update_chat_name(chat_id):
     if request.method == 'OPTIONS':
         response = jsonify()
-        response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+        response.headers.add('Access-Control-Allow-Origin', 'https://pulse-tracker.vercel.app')
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization')
         response.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
         return response
