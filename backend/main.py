@@ -5,7 +5,7 @@ import serial
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
-from chat import get_response
+# from chat import get_response
 
 app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = 'super-secret'
@@ -17,11 +17,11 @@ ser = serial.Serial("COM3", 9600)
 
 try:
     db_connection = mysql.connector.connect(
-        host="127.0.0.1",
+        host="fojvtycq53b2f2kx.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
         port="3306",
-        user="root",
-        password="bogda765",
-        database="health_data",
+        user="oc0cdpy4ylb0du8t",
+        password="konzkdqu9y2gert1",
+        database="yh4u9zzndt9ujkg8",
     )
     print("Database connection successful")
 except Exception as e:
@@ -93,14 +93,14 @@ def get_data():
     return jsonify(data)
 
 
-@app.post("/predict")
-@jwt_required()
-def predict():
-    text = request.get_json().get("message")
-    db_cursor = db_connection.cursor()
-    response = get_response(text, db_cursor)
-    message = {"answer": response}
-    return jsonify(message)
+# @app.post("/predict")
+# @jwt_required()
+# def predict():
+#     text = request.get_json().get("message")
+#     db_cursor = db_connection.cursor()
+#     response = get_response(text, db_cursor)
+#     message = {"answer": response}
+#     return jsonify(message)
 
 
 @app.route("/user", methods=["GET", "PUT"])
